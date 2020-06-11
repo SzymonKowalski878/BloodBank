@@ -18,10 +18,6 @@ namespace BloodBank.DataAccess.Mappings
                 .HasOne(m => m.BloodStorage)
                 .WithOne(m => m.BloodType)
                 .HasForeignKey<BloodStorage>(m => m.BloodGroupName);
-
-            builder
-                .Property(m => m.BloodGroupName)
-                .IsRequired();
         }
     }
 }

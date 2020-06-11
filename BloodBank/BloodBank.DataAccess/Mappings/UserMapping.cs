@@ -25,10 +25,6 @@ namespace BloodBank.DataAccess.Mappings
                 .HasForeignKey<BloodDonator>(m => m.UserEmail);
 
             builder
-                .Property(m => m.Email)
-                .IsRequired();
-
-            builder
                 .Property(m => m.Password)
                 .IsRequired();
 
