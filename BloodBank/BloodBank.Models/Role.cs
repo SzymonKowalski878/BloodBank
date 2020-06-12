@@ -9,7 +9,7 @@ namespace BloodBank.Models
         public int Id { get; set; }
         public bool IsWorker { get; set; }
         public bool IsBloodDonator { get; set; }
-        public string UserEmail { get; set; }
-        public User User { get; set; }
+        public virtual string UserEmail { get; set; }
+        public virtual  User User { get; set; }
     }
 }

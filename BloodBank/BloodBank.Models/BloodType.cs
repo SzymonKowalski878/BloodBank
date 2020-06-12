@@ -7,6 +7,6 @@ namespace BloodBank.Models
     public class BloodType:BaseModel
     {
         public string BloodGroupName { get; set; }
-        public BloodStorage BloodStorage { get; set; }
+        public virtual BloodStorage BloodStorage { get; set; }
     }
 }

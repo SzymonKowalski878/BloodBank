@@ -10,6 +10,6 @@ namespace BloodBank.Models
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
         public virtual Role Role { get; set; }
-        public virtual BloodDonator BloodDonator { get; set;s }
+        public virtual BloodDonator BloodDonator { get; set; }
     }
 }
