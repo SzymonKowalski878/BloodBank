@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\BloodBank.Models\BloodBank.Models.csproj" />
   </ItemGroup>
 
 </Project>
