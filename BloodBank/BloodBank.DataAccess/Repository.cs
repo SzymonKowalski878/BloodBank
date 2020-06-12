@@ -30,5 +30,10 @@ namespace BloodBank.DataAccess
         {
             return DataContext.Set<T>();
         }
+
+        public virtual void Add(T model)
+        {
+            DataContext.Set<T>().Add(model);
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace BloodBank.Logics.Repositories
         void Delete(T model);
         void SaveChanges();
         IEnumerable<T> GetAll();
+        void Add(T model);
     }
 }
