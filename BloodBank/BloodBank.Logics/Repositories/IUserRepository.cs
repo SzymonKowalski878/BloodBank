@@ -9,6 +9,6 @@ namespace BloodBank.Logics.Repositories
     public interface IUserRepository:IRepository<User>
     {
         string GetUserPassword(string email);
-        IQueryable<User> GetUsersByLogin(string email);
+        User GetUserByLogin(string email)
     }
 }

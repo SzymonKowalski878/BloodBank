@@ -15,16 +15,15 @@ namespace BloodBank.DataAccess
             
         }
 
-        public IQueryable<User> GetUsersByLogin(string email)
+        public User GetUserByLogin(string email)
         {
-            return DataContext.Users.Where(m => m.Email == email);
+            return DataContext.Users.FirstOrDefault(m => m.Email == email);
         }
 
         public string GetUserPassword(string email)
         {
-            var list = GetUsersByLogin(email);
-            var result = list.FirstOrDefault();
-
+            var result = GetUserByLogin(email);
+            
             return result?.Password;
         }
     }
