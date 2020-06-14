@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using AutoMapper;
 using BloodBank.DataAccess;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +39,11 @@ namespace BloodBank.Web
             });
 
             services.AddAutoMapper(typeof(Startup));
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyModules(typeof(Startup).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
