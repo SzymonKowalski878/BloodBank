@@ -1,4 +1,5 @@
-﻿using BloodBank.Models;
+﻿using BloodBank.Logics.Repositories;
+using BloodBank.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,9 @@ using System.Text;
 
 namespace BloodBank.DataAccess
 {
-    public class BloodStorageRepository:Repository<BloodStorage>
+    public class StorageRepository:Repository<BloodStorage>,IStorageRepository
     {
-        public BloodStorageRepository(Lazy<DataContext> dataContext)
+        public StorageRepository(Lazy<DataContext> dataContext)
             : base(dataContext)
         {
 

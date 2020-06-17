@@ -11,5 +11,6 @@ namespace BloodBank.Logics.Interfaces
         Result<BloodStorage> Remove(BloodStorage model);
         Result<BloodStorage> GetByBloodTypeName(string name);
         Result<BloodStorage> AddBloodToStorage(string name, int ammount);
+        Result<IEnumerable<BloodStorage>> GetAll();
     }
 }

@@ -8,5 +8,6 @@ namespace BloodBank.Logics.Repositories
     public interface IBloodTypeRepository:IRepository<BloodType>
     {
         BloodType GetByGroupName(string name);
+        bool CheckIfExists(string name);
     }
 }

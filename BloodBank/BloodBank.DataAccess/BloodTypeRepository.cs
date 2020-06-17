@@ -19,5 +19,10 @@ namespace BloodBank.DataAccess
         {
             return DataContext.BloodTypes.FirstOrDefault(m => m.BloodGroupName == name);
         }
+
+        public bool CheckIfExists(string name)
+        {
+            return DataContext.BloodTypes.Any(m => m.BloodGroupName == name);
+        }
     }
 }

@@ -62,5 +62,9 @@ namespace BloodBank.Logics.Storage
             return Result.Ok(bloodStorage);
         }
 
+        public Result<IEnumerable<BloodStorage>> GetAll()
+        {
+            return Result.Ok(StorageRepository.GetAll());
+        }
     }
 }
