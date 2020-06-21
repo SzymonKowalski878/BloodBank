@@ -7,6 +7,6 @@ namespace BloodBank.Logics.Repositories
 {
     public interface IBloodDonatorRepository:IRepository<BloodDonator>
     {
-        BloodDonator GetByPesel(int pesel);
+        BloodDonator GetByPesel(string pesel);
     }
 }

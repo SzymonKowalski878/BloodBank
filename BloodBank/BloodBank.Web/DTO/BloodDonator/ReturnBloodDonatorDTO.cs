@@ -13,6 +13,6 @@ namespace BloodBank.Web.DTO.BloodDonator
         public string HomeAdress { get; set; }
         public string PhoneNumber { get; set; }
         public int AmmountOfBloodDonated { get; set; }
-        public int Pesel { get; set; }
+        public string Pesel { get; set; }
     }
 }
