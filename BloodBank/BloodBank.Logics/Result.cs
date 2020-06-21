@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BloodBank.Logics
@@ -34,7 +36,18 @@ namespace BloodBank.Logics
             };
         }
 
-        
+        public static Result<T> Error<T> (IEnumerable<ValidationFailure> validationFailures)
+        {
+            return new Result<T>
+            {
+                IsScuccessful = false,
+                ErrorMessages = validationFailures.Select(v => new ErrorMessage()
+                {
+                    PropertyName = v.PropertyName,
+                    Message = v.ErrorMessage
+                })
+            };
+        }
     }
 
     public class Result<T> : Result
