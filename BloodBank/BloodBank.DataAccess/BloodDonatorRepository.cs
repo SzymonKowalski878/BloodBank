@@ -15,7 +15,7 @@ namespace BloodBank.DataAccess
 
         }
 
-        public BloodDonator GetByPesel(int pesel)
+        public BloodDonator GetByPesel(string pesel)
         {
             return DataContext.BloodDonators.FirstOrDefault(m => m.Pesel == pesel);
         }
