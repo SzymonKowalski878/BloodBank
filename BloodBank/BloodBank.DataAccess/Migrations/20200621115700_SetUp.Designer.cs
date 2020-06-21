@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BloodBank.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200611220229_SetUp")]
+    [Migration("20200621115700_SetUp")]
     partial class SetUp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,8 @@ namespace BloodBank.DataAccess.Migrations
 
             modelBuilder.Entity("BloodBank.Models.BloodDonator", b =>
                 {
-                    b.Property<int>("Pesel")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Pesel")
+                        .HasColumnType("text");
 
                     b.Property<int>("AmmountOfBloodDonated")
                         .HasColumnType("integer");

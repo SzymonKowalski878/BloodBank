@@ -56,8 +56,7 @@ namespace BloodBank.DataAccess.Migrations
                 name: "BloodDonators",
                 columns: table => new
                 {
-                    Pesel = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Pesel = table.Column<string>(nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
                     FirstName = table.Column<string>(nullable: false),
                     Surname = table.Column<string>(nullable: false),
