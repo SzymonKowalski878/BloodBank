@@ -1,5 +1,6 @@
 ﻿using BloodBank.Logics.Interfaces;
 using BloodBank.Logics.Repositories;
+using BloodBank.Logics.Users.DataHolders;
 using BloodBank.Models;
 using FluentValidation;
 using System;
@@ -12,21 +13,30 @@ namespace BloodBank.Logics.Users
     {
         private readonly Lazy<IUserRepository> _userRepository;
         protected IUserRepository UserRepository => _userRepository.Value;
+
         private readonly Lazy<IBloodTypeRepository> _bloodTypeRepository;
         protected IBloodTypeRepository BloodTypeRepository => _bloodTypeRepository.Value;
+
         private readonly Lazy<IValidator<User>> _userValidator;
         protected IValidator<User> UserValidator => _userValidator.Value;
+
         private readonly Lazy<IValidator<BloodDonator>> _bloodDonatorValidator;
         protected IValidator<BloodDonator> BloodDonatorValidator => _bloodDonatorValidator.Value;
+
+        private readonly Lazy<IAuthService> _authService;
+        protected IAuthService AuthService => _authService.Value;
+
         public UserLogic(Lazy<IUserRepository> userRepository,
             Lazy<IBloodTypeRepository>bloodTypeRepository,
             Lazy<IValidator<User>>userValidator,
-            Lazy<IValidator<BloodDonator>>bloodDonatorValidator)
+            Lazy<IValidator<BloodDonator>>bloodDonatorValidator,
+            Lazy<IAuthService> authService)
         {
             _userRepository = userRepository;
             _bloodTypeRepository = bloodTypeRepository;
             _userValidator = userValidator;
             _bloodDonatorValidator = bloodDonatorValidator;
+            _authService = authService;
         }
 
         public Result<User> AddWorker(User model)
@@ -59,6 +69,16 @@ namespace BloodBank.Logics.Users
                 {
                     return Result.Error<User>(validationResult.Errors);
                 }
+
+                var hashPassword = AuthService.HashPassword(model.Password);
+
+                if (hashPassword == null)
+                {
+                    return Result.Error<User>("Error while adding new user");
+                }
+                
+                model.Password = hashPassword;
+
                 model.Role = new Role()
                 {
                     IsWorker = true,
@@ -123,6 +143,15 @@ namespace BloodBank.Logics.Users
                     return Result.Error<User>(bloodDonatorValidationResult.Errors);
                 }
 
+                var hashPassword = AuthService.HashPassword(model.Password);
+
+                if (hashPassword == null)
+                {
+                    return Result.Error<User>("Error while adding new user");
+                }
+
+                model.Password = hashPassword;
+
                 model.Role = new Role()
                 {
                     IsWorker = false,
@@ -156,5 +185,30 @@ namespace BloodBank.Logics.Users
             return Result.Ok(result);
         }
 
+        public Result<UserToken> Login(UserLoginAndPassword data)
+        {
+            if(data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            var validationResult = AuthService.VerifyPassword(data.Login, data.Password);
+
+            if (!validationResult)
+            {
+                return Result.Error<UserToken>("Error durning validation");
+            }
+
+            var user = UserRepository.GetUserByLogin(data.Login);
+
+            var tokenData = AuthService.GenerateToken(user.Email, user.Role.IsWorker, user.Role.IsBloodDonator);
+
+            if(tokenData == null)
+            {
+                return Result.Error<UserToken>("Error durning token generation");
+            }
+
+            return Result.Ok(tokenData);
+        }
     }
 }
