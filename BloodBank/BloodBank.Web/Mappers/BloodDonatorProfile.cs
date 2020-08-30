@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BloodBank.Models;
+using BloodBank.Web.DTO.BloodDonator;
 using BloodBank.Web.DTO.BloodDonators;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace BloodBank.Web.Mappers
         public BloodDonatorProfile()
         {
             CreateMap<AddBloodDonatorDTO, BloodDonator>();
+            CreateMap<BloodDonator, ReturnBloodDonatorDTO>();
         }
     }
 }
