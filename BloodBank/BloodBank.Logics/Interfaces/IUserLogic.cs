@@ -13,5 +13,8 @@ namespace BloodBank.Logics.Interfaces
         Result<User> Remove(User model);
         Result<User> GetByEmail(string email);
         Result<UserToken> Login(UserLoginAndPassword data);
+        Result<User> UpdatePassword(string email, string newPassword);
+        Result<User> UpdateDonator(string email, string newPhoneNumber, string newHomeAdress);
+        Result<string> Delete(string email);
     }
 }
