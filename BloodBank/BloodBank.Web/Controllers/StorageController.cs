@@ -2,6 +2,7 @@
 using BloodBank.Logics.Interfaces;
 using BloodBank.Models;
 using BloodBank.Web.DTO.BloodStorage;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace BloodBank.Web.Controllers
             return Ok(Mapper.Map<IEnumerable<BloodStorage>, IEnumerable<ReturnBloodStorageDTO>>(result.Value));
         }
 
+        [Authorize("Worker")]
         [HttpPut,Route("ChangeAmmountOfBloodInStorage")]
         public IActionResult Put(string name,int ammount)
         {
