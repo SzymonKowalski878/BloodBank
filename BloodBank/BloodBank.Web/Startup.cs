@@ -79,7 +79,7 @@ namespace BloodBank.Web
                 {
                     policyBuilder
                     .RequireAuthenticatedUser()
-                    .RequireClaim("IsBloodDonator", "True")
+                    .RequireClaim("IsDonator", "True")
                     .Build();
                 });
             });
