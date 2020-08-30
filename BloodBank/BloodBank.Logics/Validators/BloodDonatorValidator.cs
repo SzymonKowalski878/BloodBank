@@ -65,40 +65,81 @@ namespace BloodBank.Logics.Validators
 
         public BloodDonatorValidator()
         {
-            RuleFor(m => m.BirthDate)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .LessThan(p => DateTime.Now.AddYears(-18))
-                .WithMessage("Failure to validate birth date");
+            //RuleFor(m => m.BirthDate)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .NotEmpty()
+            //    .LessThan(p => DateTime.Now.AddYears(-18))
+            //    .WithMessage("Failure to validate birth date");
 
-            RuleFor(m => m)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .Must(c => PeselValidation(c.BirthDate, c.Pesel))
-                .WithMessage("Failure to validate pesel");
+            //RuleFor(m => m)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .Must(c => PeselValidation(c.BirthDate, c.Pesel))
+            //    .WithMessage("Failure to validate pesel");
 
-            RuleFor(m => m.FirstName)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .MaximumLength(30)
-                .WithMessage("Failure to validate firstname");
+            //RuleFor(m => m.FirstName)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .NotEmpty()
+            //    .MaximumLength(30)
+            //    .WithMessage("Failure to validate firstname");
 
-            RuleFor(m => m.Surname)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .MaximumLength(30)
-                .WithMessage("Failure to validate surname");
+            //RuleFor(m => m.Surname)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .NotEmpty()
+            //    .MaximumLength(30)
+            //    .WithMessage("Failure to validate surname");
 
-            RuleFor(m => m.PhoneNumber)
+            //RuleFor(m => m.PhoneNumber)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .Must(x => x.ToString().Length == 9)
+            //    .Must(PhoneNumberValidator)
+            //    .WithMessage("Failure to validate phone number");
+
+            //RuleFor(m => m.HomeAdress)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .NotEmpty()
+            //    .MaximumLength(50)
+            //    .WithMessage("Failure to validate home adress");
+
+            RuleSet("PhoneAndAdress", () =>
+            {
+                RuleFor(m => m.PhoneNumber)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .Must(x => x.ToString().Length == 9)
                 .Must(PhoneNumberValidator)
                 .WithMessage("Failure to validate phone number");
 
-            RuleFor(m => m.HomeAdress)
+                RuleFor(m => m.HomeAdress)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
                 .MaximumLength(50)
                 .WithMessage("Failure to validate home adress");
+            });
+
+            RuleSet("ValidateRestOfProperties", () =>
+             {
+                 RuleFor(m => m.BirthDate)
+                 .Cascade(CascadeMode.StopOnFirstFailure)
+                 .NotEmpty()
+                 .LessThan(p => DateTime.Now.AddYears(-18))
+                 .WithMessage("Failure to validate birth date");
+
+                 RuleFor(m => m)
+                     .Cascade(CascadeMode.StopOnFirstFailure)
+                     .Must(c => PeselValidation(c.BirthDate, c.Pesel))
+                     .WithMessage("Failure to validate pesel");
+
+                 RuleFor(m => m.FirstName)
+                     .Cascade(CascadeMode.StopOnFirstFailure)
+                     .NotEmpty()
+                     .MaximumLength(30)
+                     .WithMessage("Failure to validate firstname");
+
+                 RuleFor(m => m.Surname)
+                     .Cascade(CascadeMode.StopOnFirstFailure)
+                     .NotEmpty()
+                     .MaximumLength(30)
+                     .WithMessage("Failure to validate surname");
+             });
         }
     }
 }

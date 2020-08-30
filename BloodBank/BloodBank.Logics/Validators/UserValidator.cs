@@ -21,15 +21,33 @@ namespace BloodBank.Logics.Validators
         }
         public UserValidator()
         {
-            RuleFor(m => m.Password)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .Must(ValidatePasswordStrength);
+            //RuleFor(m => m.Password)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .NotEmpty()
+            //    .Must(ValidatePasswordStrength);
 
-            RuleFor(m => m.Email)
+            //RuleFor(m => m.Email)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .NotEmpty()
+            //    .EmailAddress();
+            RuleSet("ValidatePassword", () =>
+            {
+                RuleFor(m => m.Password)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
-                .EmailAddress();
+                .Must(ValidatePasswordStrength)
+                .WithMessage("Error durning password validation");
+            });
+
+            RuleSet("ValidateEmail", () =>
+            {
+                RuleFor(m => m.Email)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .EmailAddress()
+                .WithMessage("Error durning email validation");
+            });
+
         }
     }
 }
