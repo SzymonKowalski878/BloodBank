@@ -66,7 +66,7 @@ namespace BloodBank.Web.Controllers
 
             if (!result.IsScuccessful)
             {
-                return BadRequest(result);
+                return BadRequest(result.ErrorMessages);
             }
 
             return Ok(dto);
